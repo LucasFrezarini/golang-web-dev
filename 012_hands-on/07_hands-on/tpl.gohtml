@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <title>California Hotels</title>
+  </head>
+  <body>
+    <h1>Restaurants</h1> {{range .}}
+    <h1>{{.Restaurant}}</h1>
+    <h2>Menu</h2> {{range .Menu}}
+      <h3>{{.Name}}</h3>
+      <ul>    
+      <li> {{range .Foods}} 
+        {{.Name}} - {{.Description}} - R$ {{.Price}}
+      </li> {{end}}
+      </ul> {{end}}
+    {{end}}
+  </body>
+</html>

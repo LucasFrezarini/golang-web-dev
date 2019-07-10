@@ -1,0 +1,10 @@
+{{define "period"}}
+  {{if .Term}}
+    <h3>{{.Term}}:</h3>
+    <ul>
+      {{range .Courses}}
+      <li>{{template "course" .}}</li>
+      {{end}}
+    </ul>
+  {{end}}
+{{end}}

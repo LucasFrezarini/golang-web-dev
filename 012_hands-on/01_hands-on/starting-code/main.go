@@ -27,11 +27,20 @@ type year struct {
 var tpl *template.Template
 
 func init() {
-	tpl = template.Must(template.ParseFiles("tpl.gohtml"))
+	tpl = template.Must(template.ParseGlob("templates/*.gohtml"))
 }
 
 func main() {
-	years := []year{
+	years := getYearsCourses()
+	html := createHtmlFile()
+	err := tpl.ExecuteTemplate(html, "index.gohtml", years)
+	if err != nil {
+		log.Fatalln(err)
+	}
+}
+
+func getYearsCourses() []year {
+	return []year{
 		year{
 			AcaYear: "2020-2021",
 			Fall: semester{
@@ -71,9 +80,14 @@ func main() {
 			},
 		},
 	}
+}
 
-	err := tpl.Execute(os.Stdout, nil)
+func createHtmlFile() *os.File {
+	file, err := os.Create("index.html")
+
 	if err != nil {
 		log.Fatalln(err)
 	}
+
+	return file
 }
